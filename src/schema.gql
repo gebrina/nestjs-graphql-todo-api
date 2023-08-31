@@ -1,0 +1,57 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Todo {
+  todoId: ID!
+  title: String!
+  status: String!
+  description: String!
+  cretedAt: DateTime!
+  user: User
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type User {
+  userId: String!
+  username: String!
+  email: String!
+  password: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  todos: [Todo!]
+}
+
+type Query {
+  findAllUsers: [User!]!
+  findOneUser(id: String!): User!
+  findAllTodos: [Todo!]!
+  findOneTodo(todoId: String!): Todo!
+}
+
+type Mutation {
+  createUser(input: UserInput!): User!
+  updateUser(input: UserInput!): User!
+  deleteUser(id: String!): User!
+  deleteTodo(todoId: String!): Todo
+  createTodo(input: TodoInput!): Todo!
+}
+
+input UserInput {
+  userId: String!
+  username: String!
+  email: String!
+  password: String!
+}
+
+input TodoInput {
+  todoId: ID
+  title: String!
+  status: String! = "PENDING"
+  description: String!
+  user: UserInput!
+}
